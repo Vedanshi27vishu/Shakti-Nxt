@@ -153,19 +153,19 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     // --------------------------------------------------------
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Scolor.primary,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Scolor.secondry),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => BottomNavBarExample()),
-            );
-          },
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Scolor.primary,
+      //   elevation: 0,
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back, color: Scolor.secondry),
+      //     onPressed: () {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) => BottomNavBarExample()),
+      //       );
+      //     },
+      //   ),
+      // ),
       body: Center(
         child: Container(
           width: contentMaxWidth,     // Applying the responsive width here
@@ -174,7 +174,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomTopBar3(),
+              //  CustomTopBar3(),
                 SizedBox(height: screenHeight * 0.015),
                 Center(child: ScreenHeadings(text: "Create New Post")),
                 SizedBox(height: screenHeight * 0.005),

@@ -11,10 +11,23 @@ class InvestmentGroupsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = THelperFunctions.screenWidth(context);
     double screenHeight = THelperFunctions.screenHeight(context);
-    double padding = screenWidth * 0.04;
-    double fontSizeSubtitle = screenWidth * 0.045;
-    double fontSizeContent = screenWidth * 0.04;
+
+    // Responsive content width like in login/profile screen
+    double contentMaxWidth;
+    if (screenWidth < 600) {
+      contentMaxWidth = screenWidth;
+    } else if (screenWidth < 1000) {
+      contentMaxWidth = 700;
+    } else {
+      contentMaxWidth = 900;
+    }
+    double padding = contentMaxWidth * 0.04;
+    double fontSizeSubtitle = contentMaxWidth * 0.035;
+    double fontSizeContent = contentMaxWidth * 0.02;
     double buttonHeight = screenHeight * 0.05;
+
+    // For responsive card width on large screens
+    double cardMaxWidth = contentMaxWidth > 480 ? 480 : contentMaxWidth;
 
     return Scaffold(
       backgroundColor: Scolor.primary,
@@ -23,102 +36,113 @@ class InvestmentGroupsScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back,
-              color: Scolor.secondry, size: screenWidth * 0.06),
+              color: Scolor.secondry, size: contentMaxWidth * 0.06),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: padding, vertical: padding / 2),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ScreenHeadings(text: "Groups-"),
-            SizedBox(height: screenHeight * 0.005),
-            Yellowline(screenWidth: screenWidth),
-            SizedBox(height: screenHeight * 0.015),
-            Text(
-              "Investment Groups Near You",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: fontSizeSubtitle,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: screenHeight * 0.015),
-            Expanded(
-              child: ListView.builder(
-                itemCount: investmentGroups.length,
-                itemBuilder: (context, index) {
-                  final group = investmentGroups[index];
-                  return Container(
-                    margin: EdgeInsets.only(bottom: screenHeight * 0.015),
-                    padding: EdgeInsets.all(screenWidth * 0.03),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.amber, width: screenWidth * 0.004),
-                      borderRadius: BorderRadius.circular(screenWidth * 0.025),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          group['name']!,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: fontSizeContent,
-                            fontWeight: FontWeight.bold,
+        padding: EdgeInsets.symmetric(horizontal: padding, vertical: padding / 2),
+        child: Center(
+          child: Container(
+            width: contentMaxWidth,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ScreenHeadings(text: "Groups-"),
+                SizedBox(height: screenHeight * 0.005),
+                Yellowline(screenWidth: contentMaxWidth),
+                SizedBox(height: screenHeight * 0.015),
+                Text(
+                  "Investment Groups Near You",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: fontSizeSubtitle,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.015),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: investmentGroups.length,
+                    itemBuilder: (context, index) {
+                      final group = investmentGroups[index];
+                      return Center(
+                        child: Container(
+                          constraints: BoxConstraints(maxWidth: cardMaxWidth),
+                          margin: EdgeInsets.only(bottom: screenHeight * 0.017),
+                          padding: EdgeInsets.all(cardMaxWidth * 0.05),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.amber, width: cardMaxWidth * 0.008),
+                            borderRadius: BorderRadius.circular(cardMaxWidth * 0.05),
+                            color: Scolor.primary,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                group['name']!,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: fontSizeContent,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: screenHeight * 0.005),
+                              Text(
+                                "${group['members']} members | ${group['meeting']}",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: fontSizeContent * 0.8,
+                                ),
+                              ),
+                              SizedBox(height: screenHeight * 0.01),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.amber,
+                                        foregroundColor: Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(cardMaxWidth * 0.035),
+                                        ),
+                                        minimumSize: Size(0, buttonHeight),
+                                      ),
+                                      onPressed: () {},
+                                      child: const Text("Preview"),
+                                    ),
+                                  ),
+                                  SizedBox(width: cardMaxWidth * 0.04),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.amber,
+                                        foregroundColor: Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(cardMaxWidth * 0.035),
+                                        ),
+                                        minimumSize: Size(0, buttonHeight),
+                                      ),
+                                      onPressed: () {},
+                                      child: const Text("Join"),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.005),
-                        Text(
-                          "${group['members']} members | ${group['meeting']}",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: fontSizeContent * 0.8,
-                          ),
-                        ),
-                        SizedBox(height: screenHeight * 0.01),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.amber,
-                                foregroundColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      screenWidth * 0.015),
-                                ),
-                                minimumSize:
-                                    Size(screenWidth * 0.35, buttonHeight),
-                              ),
-                              onPressed: () {},
-                              child: const Text("Preview"),
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.amber,
-                                foregroundColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      screenWidth * 0.015),
-                                ),
-                                minimumSize:
-                                    Size(screenWidth * 0.35, buttonHeight),
-                              ),
-                              onPressed: () {},
-                              child: const Text("Join"),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

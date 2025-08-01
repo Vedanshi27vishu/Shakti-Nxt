@@ -46,7 +46,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
 
       if (!mounted) return;
 
-      final response = await http.get(
+      final response = await http.post(
         Uri.parse('http://65.2.82.85:5000/api/followers_following'),
         headers: {
           'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    // --- Added responsive width logic ---
+    // --- Responsive width logic ---
     double contentMaxWidth;
     if (screenWidth < 600) {
       contentMaxWidth = screenWidth; // Phone: full width
@@ -140,12 +140,12 @@ class _UsersListScreenState extends State<UsersListScreen> {
     // -------------------------------------
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Users'),
-        backgroundColor: const Color(0xFF1E3A8A), // Dark blue
-        foregroundColor: Colors.white,
-        elevation: 2,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Users'),
+      //   backgroundColor: const Color(0xFF1E3A8A), // Dark blue
+      //   foregroundColor: Colors.white,
+      //   elevation: 2,
+      // ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -236,21 +236,16 @@ class _UsersListScreenState extends State<UsersListScreen> {
                               itemBuilder: (context, index) {
                                 final user = users[index];
                                 return Container(
-                                  margin:
-                                      const EdgeInsets.only(bottom: 12),
+                                  margin: const EdgeInsets.only(bottom: 12),
                                   child: Card(
                                     elevation: 3,
-                                    shadowColor:
-                                        Colors.grey.withOpacity(0.3),
+                                    shadowColor: Colors.grey.withOpacity(0.3),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12),
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: ListTile(
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 20,
-                                              vertical: 8),
+                                      contentPadding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 8),
                                       leading: CircleAvatar(
                                         radius: 25,
                                         backgroundColor:

@@ -125,7 +125,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
 
       final url = Uri.parse('http://65.2.82.85:5000/api/budget/insights');
 
-      final response = await http.get(
+      final response = await http.post(
         url,
         headers: {
           'Authorization': 'Bearer $token',

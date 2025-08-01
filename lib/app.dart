@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           theme: ThemeData(scaffoldBackgroundColor: Scolor.primary),
           debugShowCheckedModeBanner: false,
-         // home:  SplashScreen(),
-          home:CommunityHomeScreen(),
+         home:  SplashScreen(),
+          //home:CommunityHomeScreen(),
         );
       },
     );

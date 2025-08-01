@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -35,7 +34,6 @@ class ApiResponse {
     var list = json['last6MonthsProfits'] as List;
     List<ProfitData> profitsList =
         list.map((i) => ProfitData.fromJson(i)).toList();
-
     return ApiResponse(last6MonthsProfits: profitsList);
   }
 }
@@ -154,6 +152,18 @@ class _TrackerScreenState extends State<TrackerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // --- Only these lines make it responsive like login! ---
+    double screenWidth = MediaQuery.of(context).size.width;
+    double contentMaxWidth;
+    if (screenWidth < 600) {
+      contentMaxWidth = screenWidth;
+    } else if (screenWidth < 1000) {
+      contentMaxWidth = 700;
+    } else {
+      contentMaxWidth = 900;
+    }
+    //--------------------------------------------------------
+
     return Scaffold(
       backgroundColor: Scolor.primary,
       appBar: AppBar(
@@ -178,173 +188,178 @@ class _TrackerScreenState extends State<TrackerScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text(
-            'Track Your Growth',
-            style: TextStyle(
-              color: Scolor.white,
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Container(
-            height: 3,
-            width: 100,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color.fromARGB(255, 245, 194, 7), Scolor.secondry],
-              ),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-          const SizedBox(height: 40),
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: const Color(0xFF34495E).withOpacity(0.3),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: const Color(0xFF34495E),
-                  width: 1,
+      body: Center(
+        child: Container(
+          width: contentMaxWidth,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text(
+                'Track Your Growth',
+                style: TextStyle(
+                  color: Scolor.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              child: isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        color: Scolor.secondry,
-                      ),
-                    )
-                  : LineChart(
-                      LineChartData(
-                        backgroundColor: Colors.transparent,
-                        gridData: FlGridData(
-                          show: true,
-                          drawVerticalLine: true,
-                          drawHorizontalLine: true,
-                          horizontalInterval: maxY / 5,
-                          verticalInterval: 1,
-                          getDrawingHorizontalLine: (_) => const FlLine(
-                            color: Color(0xFF34495E),
-                            strokeWidth: 1,
+              const SizedBox(height: 8),
+              Container(
+                height: 3,
+                width: 100,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color.fromARGB(255, 245, 194, 7), Scolor.secondry],
+                  ),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 40),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF34495E).withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: const Color(0xFF34495E),
+                      width: 1,
+                    ),
+                  ),
+                  child: isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Scolor.secondry,
                           ),
-                          getDrawingVerticalLine: (_) => const FlLine(
-                            color: Color(0xFF34495E),
-                            strokeWidth: 1,
-                          ),
-                        ),
-                        titlesData: FlTitlesData(
-                          show: true,
-                          rightTitles: const AxisTitles(
-                              sideTitles: SideTitles(showTitles: false)),
-                          topTitles: const AxisTitles(
-                              sideTitles: SideTitles(showTitles: false)),
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              reservedSize: 30,
-                              interval: 1,
-                              getTitlesWidget: (double value, TitleMeta meta) {
-                                if (value.toInt() >= 0 &&
-                                    value.toInt() < months.length) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                      months[value.toInt()],
-                                      style: const TextStyle(
-                                        color: Scolor.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                return const Text('');
-                              },
-                            ),
-                          ),
-                          leftTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              interval: maxY / 5,
-                              reservedSize: 80,
-                              getTitlesWidget: (double value, TitleMeta meta) {
-                                String formattedValue;
-                                if (value >= 1000000) {
-                                  formattedValue =
-                                      '${(value / 1000000).toStringAsFixed(1)}M';
-                                } else if (value >= 1000) {
-                                  formattedValue =
-                                      '${(value / 1000).toStringAsFixed(0)}K';
-                                } else {
-                                  formattedValue = value.toInt().toString();
-                                }
-
-                                return Text(
-                                  formattedValue,
-                                  style: const TextStyle(
-                                    color: Scolor.white,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        borderData: FlBorderData(show: false),
-                        minX: 0,
-                        maxX: (chartData.length - 1).toDouble(),
-                        minY: 0,
-                        maxY: maxY,
-                        lineBarsData: [
-                          LineChartBarData(
-                            spots: chartData,
-                            isCurved: true,
-                            gradient: const LinearGradient(
-                              colors: [
-                                Color.fromARGB(255, 245, 194, 7),
-                                Scolor.secondry,
-                              ],
-                            ),
-                            barWidth: 3,
-                            isStrokeCapRound: true,
-                            dotData: FlDotData(
+                        )
+                      : LineChart(
+                          LineChartData(
+                            backgroundColor: Colors.transparent,
+                            gridData: FlGridData(
                               show: true,
-                              getDotPainter: (spot, percent, barData, index) {
-                                return FlDotCirclePainter(
-                                  radius: 4,
-                                  color: Scolor.secondry,
-                                  strokeWidth: 2,
-                                  strokeColor: Scolor.white,
-                                );
-                              },
-                            ),
-                            belowBarData: BarAreaData(
-                              show: true,
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  const Color.fromARGB(255, 245, 194, 7)
-                                      .withOpacity(0.3),
-                                  const Color.fromARGB(255, 245, 194, 7)
-                                      .withOpacity(0.1),
-                                  Colors.transparent,
-                                ],
+                              drawVerticalLine: true,
+                              drawHorizontalLine: true,
+                              horizontalInterval: maxY / 5,
+                              verticalInterval: 1,
+                              getDrawingHorizontalLine: (_) => const FlLine(
+                                color: Color(0xFF34495E),
+                                strokeWidth: 1,
+                              ),
+                              getDrawingVerticalLine: (_) => const FlLine(
+                                color: Color(0xFF34495E),
+                                strokeWidth: 1,
                               ),
                             ),
+                            titlesData: FlTitlesData(
+                              show: true,
+                              rightTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false)),
+                              topTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false)),
+                              bottomTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  reservedSize: 30,
+                                  interval: 1,
+                                  getTitlesWidget: (double value, TitleMeta meta) {
+                                    if (value.toInt() >= 0 &&
+                                        value.toInt() < months.length) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
+                                        child: Text(
+                                          months[value.toInt()],
+                                          style: const TextStyle(
+                                            color: Scolor.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    return const Text('');
+                                  },
+                                ),
+                              ),
+                              leftTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  interval: maxY / 5,
+                                  reservedSize: 80,
+                                  getTitlesWidget: (double value, TitleMeta meta) {
+                                    String formattedValue;
+                                    if (value >= 1000000) {
+                                      formattedValue =
+                                          '${(value / 1000000).toStringAsFixed(1)}M';
+                                    } else if (value >= 1000) {
+                                      formattedValue =
+                                          '${(value / 1000).toStringAsFixed(0)}K';
+                                    } else {
+                                      formattedValue = value.toInt().toString();
+                                    }
+
+                                    return Text(
+                                      formattedValue,
+                                      style: const TextStyle(
+                                        color: Scolor.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            borderData: FlBorderData(show: false),
+                            minX: 0,
+                            maxX: (chartData.length - 1).toDouble(),
+                            minY: 0,
+                            maxY: maxY,
+                            lineBarsData: [
+                              LineChartBarData(
+                                spots: chartData,
+                                isCurved: true,
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(255, 245, 194, 7),
+                                    Scolor.secondry,
+                                  ],
+                                ),
+                                barWidth: 3,
+                                isStrokeCapRound: true,
+                                dotData: FlDotData(
+                                  show: true,
+                                  getDotPainter: (spot, percent, barData, index) {
+                                    return FlDotCirclePainter(
+                                      radius: 4,
+                                      color: Scolor.secondry,
+                                      strokeWidth: 2,
+                                      strokeColor: Scolor.white,
+                                    );
+                                  },
+                                ),
+                                belowBarData: BarAreaData(
+                                  show: true,
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      const Color.fromARGB(255, 245, 194, 7)
+                                          .withOpacity(0.3),
+                                      const Color.fromARGB(255, 245, 194, 7)
+                                          .withOpacity(0.1),
+                                      Colors.transparent,
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-            ),
+                        ),
+                ),
+              ),
+            ]),
           ),
-        ]),
+        ),
       ),
     );
   }

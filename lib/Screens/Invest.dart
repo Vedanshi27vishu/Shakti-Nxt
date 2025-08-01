@@ -1,11 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shakti/Screens/InvestScreen.dart';
 import 'package:shakti/Screens/InvestmentGroup.dart';
 import 'package:shakti/Screens/government.dart';
 import 'package:shakti/Screens/tracker.dart';
 import 'package:shakti/Utils/constants/colors.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum DeviceScreenType { Mobile, Tablet, Laptop }
@@ -83,7 +84,7 @@ class _InvestState extends State<Invest> {
       final token = prefs.getString('token');
       if (token == null) throw Exception('No authentication token found');
 
-      final url = Uri.parse('http://13.233.25.114:5000/filter-loans');
+      final url = Uri.parse('http://65.2.82.85:5000/filter-loans');
 
       final response = await http.post(url, headers: {
         'Authorization': 'Bearer $token',
@@ -115,7 +116,7 @@ class _InvestState extends State<Invest> {
       final token = prefs.getString('token');
       if (token == null) throw Exception('No authentication token found');
 
-      final url = Uri.parse('http://13.233.25.114:5000/private-schemes');
+      final url = Uri.parse('http://65.2.82.85:5000/private-schemes');
 
       final response = await http.post(url, headers: {
         'Authorization': 'Bearer $token',
@@ -129,7 +130,8 @@ class _InvestState extends State<Invest> {
           privateSchemes = data['recommendedLoans'] ?? [];
         });
       } else {
-        throw Exception('Failed to fetch private schemes: ${response.statusCode}');
+        throw Exception(
+            'Failed to fetch private schemes: ${response.statusCode}');
       }
     } catch (e) {
       if (!mounted) return;
@@ -145,7 +147,7 @@ class _InvestState extends State<Invest> {
       final token = prefs.getString('token');
       if (token == null) throw Exception('No authentication token found');
 
-      final url = Uri.parse('http://13.233.25.114:5000/api/financial/loans');
+      final url = Uri.parse('http://65.2.82.85:5000/api/financial/loans');
 
       final response = await http.get(url, headers: {
         'Authorization': 'Bearer $token',
@@ -157,7 +159,8 @@ class _InvestState extends State<Invest> {
         if (!mounted) return;
         setState(() {
           userLoans = data['loans'] ?? [];
-          totalRemainingLoanAmount = (data['totalRemainingAmount'] ?? 0).toDouble();
+          totalRemainingLoanAmount =
+              (data['totalRemainingAmount'] ?? 0).toDouble();
           investmentAmount = (data['investmentAmount'] ?? 0).toDouble();
           totalInstallment = (data['totalinstallment'] ?? 0).toDouble();
         });
@@ -175,17 +178,17 @@ class _InvestState extends State<Invest> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-  final screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery.of(context).size.height;
 
-  // Determine max width of main content based on screen size
-  double contentMaxWidth;
-  if (screenWidth < 600) {
-    contentMaxWidth = screenWidth;           // Phones — full width
-  } else if (screenWidth < 1000) {
-    contentMaxWidth = 700;                   // Tablets — max width 700
-  } else {
-    contentMaxWidth = 900;                   // Laptops/Desktops — max width 900
-  }
+    // Determine max width of main content based on screen size
+    double contentMaxWidth;
+    if (screenWidth < 600) {
+      contentMaxWidth = screenWidth; // Phones — full width
+    } else if (screenWidth < 1000) {
+      contentMaxWidth = 700; // Tablets — max width 700
+    } else {
+      contentMaxWidth = 900; // Laptops/Desktops — max width 900
+    }
     final deviceType = getDeviceType(context);
 
     // Define layout parameters based on device type
@@ -221,51 +224,60 @@ class _InvestState extends State<Invest> {
         preferredSize: const Size.fromHeight(56),
         child: LayoutBuilder(builder: (context, constraints) {
           double width = constraints.maxWidth;
-          double iconSize = (deviceType == DeviceScreenType.Mobile) ? 26 : (deviceType == DeviceScreenType.Tablet) ? 30 : 36;
-          double horizontalPadding = (deviceType == DeviceScreenType.Mobile) ? 0 : (deviceType == DeviceScreenType.Tablet) ? 10 : 30;
+          double iconSize = (deviceType == DeviceScreenType.Mobile)
+              ? 26
+              : (deviceType == DeviceScreenType.Tablet)
+                  ? 30
+                  : 36;
+          double horizontalPadding = (deviceType == DeviceScreenType.Mobile)
+              ? 0
+              : (deviceType == DeviceScreenType.Tablet)
+                  ? 10
+                  : 30;
 
           return AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Scolor.primary,
             elevation: 0,
             titleSpacing: 0,
-            // title: 
+            // title:
             title: LayoutBuilder(
-          builder: (context, constraints) {
-              // You may define custom breakpoints as per your design
-              double width;
-              if (constraints.maxWidth < 600) {
-                // Mobile: use full width with padding
-                width = double.infinity;
-              } else if (constraints.maxWidth < 1000) {
-                // Tablet: medium box
-                width = 400;
-              } else {
-                // Desktop/Laptop: slightly larger, but still centered
-                width = 500;
-              }
+              builder: (context, constraints) {
+                // You may define custom breakpoints as per your design
+                double width;
+                if (constraints.maxWidth < 600) {
+                  // Mobile: use full width with padding
+                  width = double.infinity;
+                } else if (constraints.maxWidth < 1000) {
+                  // Tablet: medium box
+                  width = 400;
+                } else {
+                  // Desktop/Laptop: slightly larger, but still centered
+                  width = 500;
+                }
 
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-              child: Text(
-                "Hi, Entrepreneur!",
-                style: TextStyle(
-                  fontSize: headingFontSize,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                maxLines: 1,
-              ),
-            );
-          },
-        ),
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                  child: Text(
+                    "Hi, Entrepreneur!",
+                    style: TextStyle(
+                      fontSize: headingFontSize,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    maxLines: 1,
+                  ),
+                );
+              },
+            ),
             actions: [
               Padding(
                 padding: EdgeInsets.only(right: horizontalPadding + 10),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => TrackerScreen()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => TrackerScreen()));
                   },
                   child: SizedBox(
                     height: iconSize,
@@ -280,7 +292,7 @@ class _InvestState extends State<Invest> {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Container(
+          child: SizedBox(
             width: contentMaxWidth,
             child: LayoutBuilder(builder: (context, constraints) {
               double maxWidth;
@@ -291,10 +303,12 @@ class _InvestState extends State<Invest> {
               } else {
                 maxWidth = 900;
               }
-          
+
               // Info card width based on maxWidth and layout direction
-              double infoCardWidth = (cardsDirection == Axis.horizontal) ? (maxWidth - 2 * 16) / 3 : maxWidth;
-          
+              double infoCardWidth = (cardsDirection == Axis.horizontal)
+                  ? (maxWidth - 2 * 16) / 3
+                  : maxWidth;
+
               return Container(
                 width: maxWidth,
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -310,7 +324,7 @@ class _InvestState extends State<Invest> {
                     //   ),
                     // ),
                     // SizedBox(height: screenHeight * 0.05),
-          
+
                     // Info cards
                     cardsDirection == Axis.horizontal
                         ? Row(
@@ -372,9 +386,9 @@ class _InvestState extends State<Invest> {
                               ),
                             ],
                           ),
-          
+
                     SizedBox(height: screenHeight * 0.05),
-          
+
                     // Active loans heading
                     Text(
                       "Active Loans",
@@ -385,15 +399,15 @@ class _InvestState extends State<Invest> {
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.02),
-          
+
                     // loan table inside limited height
                     SizedBox(
                       height: screenHeight * 0.35,
                       child: _loanTable(),
                     ),
-          
+
                     SizedBox(height: screenHeight * 0.05),
-          
+
                     // Scheme cards horizontal view or wrap on mobile
                     if (deviceType == DeviceScreenType.Mobile)
                       Wrap(
@@ -405,7 +419,8 @@ class _InvestState extends State<Invest> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => GovernmentLoansScreen(loans: recommendedLoans),
+                                  builder: (_) => GovernmentLoansScreen(
+                                      loans: recommendedLoans),
                                 ),
                               );
                             },
@@ -425,7 +440,8 @@ class _InvestState extends State<Invest> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => GovernmentLoansScreen(loans: privateSchemes),
+                                  builder: (_) => GovernmentLoansScreen(
+                                      loans: privateSchemes),
                                 ),
                               );
                             },
@@ -452,7 +468,8 @@ class _InvestState extends State<Invest> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) => GovernmentLoansScreen(loans: recommendedLoans),
+                                    builder: (_) => GovernmentLoansScreen(
+                                        loans: recommendedLoans),
                                   ),
                                 );
                               },
@@ -470,7 +487,8 @@ class _InvestState extends State<Invest> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) => GovernmentLoansScreen(loans: privateSchemes),
+                                    builder: (_) => GovernmentLoansScreen(
+                                        loans: privateSchemes),
                                   ),
                                 );
                               },
@@ -485,26 +503,45 @@ class _InvestState extends State<Invest> {
                           ],
                         ),
                       ),
-          
+
                     SizedBox(height: screenHeight * 0.05),
-          
+
                     // Bottom buttons (responsive layout)
                     if (deviceType == DeviceScreenType.Mobile)
                       Column(
                         children: [
                           GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const Invest())),
-                            child: BottomContainer(width: maxWidth * bottomButtonWidthFactor, height: screenHeight, heading: "INVEST"),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const Invest())),
+                            child: BottomContainer(
+                                width: maxWidth * bottomButtonWidthFactor,
+                                height: screenHeight,
+                                heading: "INVEST"),
                           ),
                           SizedBox(height: 12),
                           GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InvestmentGroupsScreen())),
-                            child: BottomContainer(width: maxWidth * bottomButtonWidthFactor, height: screenHeight, heading: "GROUPS"),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        const InvestmentGroupsScreen())),
+                            child: BottomContainer(
+                                width: maxWidth * bottomButtonWidthFactor,
+                                height: screenHeight,
+                                heading: "GROUPS"),
                           ),
                           SizedBox(height: 12),
                           GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TrackerScreen())),
-                            child: BottomContainer(width: maxWidth * bottomButtonWidthFactor, height: screenHeight, heading: "TRACKER"),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const TrackerScreen())),
+                            child: BottomContainer(
+                                width: maxWidth * bottomButtonWidthFactor,
+                                height: screenHeight,
+                                heading: "TRACKER"),
                           ),
                         ],
                       )
@@ -513,16 +550,35 @@ class _InvestState extends State<Invest> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InvestmentScreen())),
-                            child: BottomContainer(width: maxWidth * bottomButtonWidthFactor, height: screenHeight, heading: "INVEST"),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const InvestmentScreen())),
+                            child: BottomContainer(
+                                width: maxWidth * bottomButtonWidthFactor,
+                                height: screenHeight,
+                                heading: "INVEST"),
                           ),
                           GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InvestmentGroupsScreen())),
-                            child: BottomContainer(width: maxWidth * bottomButtonWidthFactor, height: screenHeight, heading: "GROUPS"),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        const InvestmentGroupsScreen())),
+                            child: BottomContainer(
+                                width: maxWidth * bottomButtonWidthFactor,
+                                height: screenHeight,
+                                heading: "GROUPS"),
                           ),
                           GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TrackerScreen())),
-                            child: BottomContainer(width: maxWidth * bottomButtonWidthFactor, height: screenHeight, heading: "TRACKER"),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const TrackerScreen())),
+                            child: BottomContainer(
+                                width: maxWidth * bottomButtonWidthFactor,
+                                height: screenHeight,
+                                heading: "TRACKER"),
                           ),
                         ],
                       ),
@@ -536,9 +592,10 @@ class _InvestState extends State<Invest> {
     );
   }
 
-  Widget _infoCard(String title, String amount, String subtitle, double height, double width, String image) {
+  Widget _infoCard(String title, String amount, String subtitle, double height,
+      double width, String image) {
     return Container(
-      height: height* 1.2,
+      height: height * 1.2,
       width: width,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -592,16 +649,19 @@ class _InvestState extends State<Invest> {
 
   Widget _loanTable() {
     return LayoutBuilder(builder: (context, constraints) {
-      double tableWidth = MediaQuery.of(context).size.width < 600 ? MediaQuery.of(context).size.width : 700;
+      double tableWidth = MediaQuery.of(context).size.width < 600
+          ? MediaQuery.of(context).size.width
+          : 700;
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Container(
+        child: SizedBox(
           width: tableWidth * 1.2,
           child: Column(
             children: [
               Container(
                 color: Scolor.secondry,
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 child: Row(
                   children: [
                     _tableHeader("Lender"),
@@ -616,8 +676,7 @@ class _InvestState extends State<Invest> {
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: Center(
-                      child: CircularProgressIndicator(
-                          color: Scolor.secondry)),
+                      child: CircularProgressIndicator(color: Scolor.secondry)),
                 )
               else if (error != null)
                 Padding(
@@ -671,7 +730,8 @@ class _InvestState extends State<Invest> {
     );
   }
 
-  Widget _loanRow(String lender, String loanType, String totalAmount, String remaining, String monthly) {
+  Widget _loanRow(String lender, String loanType, String totalAmount,
+      String remaining, String monthly) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
@@ -749,7 +809,8 @@ class _InvestState extends State<Invest> {
     );
   }
 
-  Widget _schemeCard(double height, double width, String heading, String image, bool isGovernment) {
+  Widget _schemeCard(double height, double width, String heading, String image,
+      bool isGovernment) {
     final schemes = isGovernment ? recommendedLoans : privateSchemes;
     return Container(
       height: height * 0.22,
@@ -791,15 +852,16 @@ class _InvestState extends State<Invest> {
                       isGovernment
                           ? "No Government Schemes."
                           : "No Private Schemes.",
-                      style: TextStyle(color: Colors.white70, fontSize: height * 0.03),
+                      style: TextStyle(
+                          color: Colors.white70, fontSize: height * 0.03),
                     ),
                   )
                 : ListView(
                     padding: EdgeInsets.zero,
                     children: schemes.take(4).map<Widget>((scheme) {
                       return Padding(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 2, horizontal: 4),
                         child: Text(
                           "• ${scheme['name'] ?? (isGovernment ? "Government Scheme" : "Private Scheme")}",
                           style: TextStyle(
@@ -826,15 +888,17 @@ class BottomContainer extends StatelessWidget {
   final String heading;
 
   const BottomContainer(
-      {required this.width, required this.height, required this.heading, Key? key})
-      : super(key: key);
+      {required this.width,
+      required this.height,
+      required this.heading,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     final fontSize = width * 0.045 > 16 ? 16 : width * 0.045;
     return Container(
-      width: width*1,
-      height: height* 0.1,
+      width: width * 1,
+      height: height * 0.1,
       decoration: BoxDecoration(
         border: Border.all(color: Scolor.secondry),
         borderRadius: BorderRadius.circular(8),
@@ -843,7 +907,7 @@ class BottomContainer extends StatelessWidget {
         child: Text(
           heading,
           style: TextStyle(
-           // fontSize: fontSize,
+            // fontSize: fontSize,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),

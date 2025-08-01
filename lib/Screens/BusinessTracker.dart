@@ -50,7 +50,7 @@ class _ComparativeTrackerScreenState extends State<ComparativeTrackerScreen> {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
 
-      final response = await http.get(
+      final response = await http.post(
         Uri.parse('http://65.2.82.85:5000/api/business/insights'),
         headers: {
           'Content-Type': 'application/json',
