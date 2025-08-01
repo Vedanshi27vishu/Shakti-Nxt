@@ -105,11 +105,44 @@ Whether you are a **budding entrepreneur** or an **established business owner**,
 
 ---
 
-## **Getting Started**
+## Getting Started
 
-Follow these steps to set up Shakti locally:
+To get started with Shakti, follow these steps:
 
-1. **Clone the Repository**  
-```bash
-git clone https://github.com/YourUsername/Shakti.git
-cd Shakti
+1. **Installation**: Clone the repository to your local machine.
+2. **Setup Environment**: Install the required dependencies using `npm install` and ensure MongoDB is running locally or use MongoDB Atlas.
+3. **Configuration**: Configure the backend by creating a `.env` file in the project root with the following variables:
+   - `MONGO_URI` = your MongoDB connection string
+   - `JWT_SECRET` = secret key for JWT authentication
+   - `GOOGLE_CLIENT_ID` = Google OAuth client ID
+   - `PORT` = port for backend server (default 5000)
+4. **Run the Application**: Start the Shakti backend server with `npm start` and verify that everything is running smoothly.
+5. **Frontend Connection**: If using the Flutter frontend, update the base API URL to point to your backend server.
+6. **Test APIs**: Use Postman or any API client to test the endpoints like:
+   - `/api/auth` for authentication
+   - `/api/signup` for 3-step signup
+   - `/api/posts` for community posts
+   - `/api/messages` for real-time chat
+
+**Note:** Make sure to use strong JWT secrets and a reliable MongoDB connection (Atlas recommended) for production deployment.
+
+
+
+## Contributing
+
+We welcome contributions from the community to improve Shakti-Nxt. To contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/improvement`).
+3. Make your changes.
+4. Commit your changes (`git commit -am 'Add new feature'`).
+5. Push to the branch (`git push origin feature/improvement`).
+6. Create a new Pull Request.
+
+
+## Contact
+
+For inquiries or assistance, please contact:
+
+- **Vedanshi Aggarwal** - [GitHub Profile](https://github.com/Vedanshi27vishu)
+- **Aikansh Tiwari** - [GitHub Profile](https://github.com/aikansh008)
