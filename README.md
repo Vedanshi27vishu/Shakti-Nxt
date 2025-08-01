@@ -30,25 +30,57 @@ Whether you are a **budding entrepreneur** or an **established business owner**,
   3. **Financial Details** (basic revenue/finance info)  
 - **Google Sign-In Integration**: Authenticate first, save user data only after full signup.
 
-### **2. Social Media for Businesses**
-- Post **achievements, ideas, and updates**  
-- **Like, comment, share, and follow** to connect with others  
-- Interest-based feed for **relevant business networking**  
+---
 
-### **3. Real-Time Messaging**
-- **1-on-1 chat** with text, images, and files  
-- **Socket-based real-time communication**  
-- Features like **reply, edit, delete, and media sharing**  
+### **2. Avatar Screen**
+- **AI Advisor** to guide your business journey  
+- **Expert Videos** for learning and growth  
+- **Business Documents** to read and implement strategies  
+- **Interactive Flowcharts** to improve business profitability  
+- **Your Progress Tracker** to monitor growth  
+- **Budget Overview & Feedback Section** to refine strategies  
 
-### **4. Business Guidance & Insights**
-- **Personalized recommendations** for loans, schemes, and financial tools  
-- **PDF-based and web-scraping-powered business search**  
-- **Budget planning and progress tracking**  
+---
 
-### **5. Secure & Scalable Backend**
+### **3. Finance Screen**
+- **Monthly Revenue** overview  
+- **Customer Count & Insights**  
+- **Daily Task Manager** with:
+  - **Today’s Tasks**
+  - **Completed Tasks**
+  - **Pending Tasks**  
+- Helps you **organize operations and monitor performance**  
+
+---
+
+### **4. Invest Screen**
+- **Total Outstanding Loans**  
+- **Monthly Loan Payments** overview  
+- **Active Investment & Investment Amounts**  
+- **Government & Private Schemes** suggestions  
+- **Invest in Groups** for collaboration  
+- **Financial Tracker** to monitor payments and returns  
+
+---
+
+### **5. Community Screen**
+- **Business-Oriented Post Feed** to see all posts related to your interests  
+- **Create & Share Posts** with your network  
+- **Followers & Following** section to manage your community  
+- **Integrated Chat** to collaborate directly with other entrepreneurs  
+
+---
+
+### **6. Secure & Scalable Backend**
 - **Node.js + Express + MongoDB** backend  
 - **JWT-based authentication** for secure access  
-- **Modular APIs** for community, chat, posts, and financial tools  
+- **Socket.IO for Real-Time Messaging**  
+- **Modular APIs** for:
+  - Community & Posts  
+  - Chat & Messaging  
+  - Finance & Investments  
+  - Business Recommendations (PDF & Web-Scraping)  
+
 
 ---
 
