@@ -1,0 +1,2 @@
+C:/Users/vedan/OneDrive/Desktop/Shakti/SHAKTI/android/app/.cxx/RelWithDebInfo/2s6n5x2f/x86/CMakeFiles/edit_cache.dir
+C:/Users/vedan/OneDrive/Desktop/Shakti/SHAKTI/android/app/.cxx/RelWithDebInfo/2s6n5x2f/x86/CMakeFiles/rebuild_cache.dir

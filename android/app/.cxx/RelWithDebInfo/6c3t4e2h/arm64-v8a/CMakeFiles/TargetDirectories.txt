@@ -1,0 +1,2 @@
+C:/Users/aikan/OneDrive/Desktop/shaktiflutter/Shakti-GSC/android/app/.cxx/RelWithDebInfo/6c3t4e2h/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/aikan/OneDrive/Desktop/shaktiflutter/Shakti-GSC/android/app/.cxx/RelWithDebInfo/6c3t4e2h/arm64-v8a/CMakeFiles/rebuild_cache.dir
