@@ -97,9 +97,10 @@ Whether you are a **budding entrepreneur** or an **established business owner**,
 
 ---
 
+
 ## **Screenshots**
 
-![Screen1](docs/screen1.png)  
+![Screen 1](https://github.com/user-attachments/assets/e751f5c1-6327-4a4e-ad65-6877015acde1) 
 ![Screen2](docs/screen2.png)  
 ![Screen3](docs/screen3.png)  
 
@@ -146,3 +147,4 @@ For inquiries or assistance, please contact:
 
 - **Vedanshi Aggarwal** - [GitHub Profile](https://github.com/Vedanshi27vishu)
 - **Aikansh Tiwari** - [GitHub Profile](https://github.com/aikansh008)
+
