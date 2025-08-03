@@ -100,13 +100,15 @@ Whether you are a **budding entrepreneur** or an **established business owner**,
 
 ## **Screenshots**
 
-![Screen 1](https://github.com/user-attachments/assets/e751f5c1-6327-4a4e-ad65-6877015acde1) 
-![Screen2](docs/screen2.png)  
-![Screen3](docs/screen3.png)  
+<img width="1305" height="665" alt="Screenshot 2025-08-03 231920" src="https://github.com/user-attachments/assets/a0ad303d-aca7-41bc-bd91-061802a6a467" />
+<img width="1273" height="633" alt="Screenshot 2025-08-03 231945" src="https://github.com/user-attachments/assets/48377dc0-96e0-486d-ae5c-d0db7d1bde67" />
+<img width="1295" height="631" alt="Screenshot 2025-08-03 230539" src="https://github.com/user-attachments/assets/846d0381-1a24-4729-8f7c-f83533b6c27e" />
 
 ---
 
+
 ## Getting Started
+
 
 To get started with Shakti, follow these steps:
 
@@ -147,4 +149,5 @@ For inquiries or assistance, please contact:
 
 - **Vedanshi Aggarwal** - [GitHub Profile](https://github.com/Vedanshi27vishu)
 - **Aikansh Tiwari** - [GitHub Profile](https://github.com/aikansh008)
+
 
