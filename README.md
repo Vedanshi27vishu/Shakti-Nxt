@@ -1,7 +1,7 @@
 # **Shakti: Empowering Innovation and Business Growth**
 
 
-<img width="715" height="297" alt="Screenshot 2025-08-03 232550" src="https://github.com/user-attachments/assets/33c1ecef-29d1-4c7b-adde-f29c9295c07b" />
+<img width="1010" height="400" alt="Screenshot 2025-08-03 232550" src="https://github.com/user-attachments/assets/33c1ecef-29d1-4c7b-adde-f29c9295c07b" />
 
 Shakti is an innovative business and community platform that empowers entrepreneurs, innovators, and business enthusiasts to connect, collaborate, and grow.  
 By combining **social networking**, **business guidance**, and **financial tools**, Shakti serves as a **one-stop platform** for idea sharing, business networking, and entrepreneurial success.  
@@ -150,6 +150,7 @@ For inquiries or assistance, please contact:
 
 - **Vedanshi Aggarwal** - [GitHub Profile](https://github.com/Vedanshi27vishu)
 - **Aikansh Tiwari** - [GitHub Profile](https://github.com/aikansh008)
+
 
 
 
